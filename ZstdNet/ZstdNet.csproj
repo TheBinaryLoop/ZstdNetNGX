@@ -1,36 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Version>1.4.5</Version>
-		<TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
+		<Version>1.4.8</Version>
+		<TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		<Title>ZstdNet</Title>
-		<PackageId>ZstdNet</PackageId>
-		<Company>SKB Kontur</Company>
-		<Authors>SKB Kontur</Authors>
+		<PackageId>Hi3Helper.ZstdNet</PackageId>
+		<Company>SKB Kontur, Collapse Project Team</Company>
+		<Authors>SKB Kontur, Collapse Project Team</Authors>
 		<Description>Zstd compression library wrapper for .NET</Description>
 		<Copyright>Copyright © SKB Kontur 2016-present</Copyright>
-		<PackageLicenseUrl>https://github.com/skbkontur/ZstdNet/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/skbkontur/ZstdNet</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/CollapseLauncher/Hi3Helper.ZstdNet</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>zstd zstandard compression</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<LangVersion>7.2</LangVersion>
-		<Platforms>AnyCPU;x64;x86</Platforms>
+		<Platforms>AnyCPU;x64;x86;ARM64</Platforms>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<IsAotCompatible>true</IsAotCompatible>
+		<IsTrimmable>true</IsTrimmable>
+		<AssemblyName>Hi3Helper.ZstdNet</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="build\x64\libzstd.dll">
-			<Link>x64\%(FileName)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Include="build\x86\libzstd.dll">
-			<Link>x86\%(FileName)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="build\**\*" Pack="true" PackagePath="build\" />
+		<None Include="icon.png" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
 		<None Include="..\LICENSE" Pack="true" PackagePath="lib\" />
+		<None Include="Lib\**\*">
+			<PackagePath>build\Lib\</PackagePath>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<Pack>true</Pack>
+		</None>
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="System.Memory" Version="4.*" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="System.Memory" Version="*" />
 	</ItemGroup>
 </Project>
