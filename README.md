@@ -1,3 +1,5 @@
+This is a fork from the original repo by [**skbkontur**](https://github.com/skbkontur/ZstdNet).
+
 ZstdNet
 =======
 
