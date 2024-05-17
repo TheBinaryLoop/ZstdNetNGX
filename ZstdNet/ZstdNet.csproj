@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Version>1.5.0</Version>
+		<Version>1.5.1</Version>
 		<TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		<Title>ZstdNet</Title>
 		<PackageId>Hi3Helper.ZstdNet</PackageId>
@@ -9,7 +9,7 @@
 		<Description>Zstd compression library wrapper for .NET</Description>
 		<Copyright>Copyright © SKB Kontur 2016-present</Copyright>
 		<PackageProjectUrl>https://github.com/CollapseLauncher/Hi3Helper.ZstdNet</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 		<PackageTags>zstd zstandard compression</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
