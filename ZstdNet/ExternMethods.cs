@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 #if NET6_0_OR_GREATER
 using System.Reflection;
 using System.Runtime.Intrinsics.X86;
-#else
-using System.Diagnostics;
 #endif
 using System.Runtime.InteropServices;
 using size_t = System.UIntPtr;
@@ -17,7 +16,8 @@ namespace ZstdNet
         private static readonly string _libArchitecturePrefix = GetLibArchitecturePrefix();
         private static readonly string _libExtensionPrefix = GetLibExtensionPrefix();
         private static readonly string _libPlatformNamePrefix = GetLibPlatformNamePrefix();
-        private static readonly string _libFolderPath = Path.Combine("Lib", $"{_libPlatformNamePrefix}-{_libArchitecturePrefix}");
+        private static readonly bool _isMusl = IsMusl();
+        private static readonly string _libFolderPath = Path.Combine("runtimes", $"{_libPlatformNamePrefix}{(_isMusl ? "-musl" : "")}-{_libArchitecturePrefix}", "native");
         private static readonly string _libFullPath = Path.Combine(_currentProcPath, _libFolderPath, "{0}" + _libExtensionPrefix);
 
         private static string GetLibArchitecturePrefix() => RuntimeInformation.ProcessArchitecture.ToString().ToLower();
@@ -41,6 +41,40 @@ namespace ZstdNet
 
             return RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "osx" : "unknown";
         }
+        
+        private static bool IsMusl() {
+#if NETSTANDARD1_1
+            var cpu = RuntimeInformation.ProcessArchitecture;
+            switch (cpu) {
+                case Architecture.X86:
+                    return Posix.AccessCheck("/lib/libc.musl-x86.so.1", 0) == 0;
+                case Architecture.X64:
+                    return Posix.AccessCheck("/lib/libc.musl-x86_64.so.1", 0) == 0;
+                case Architecture.Arm:
+                    return Posix.AccessCheck("/lib/libc.musl-armv7.so.1", 0) == 0;
+                case Architecture.Arm64:
+                    return Posix.AccessCheck("/lib/libc.musl-aarch64.so.1", 0) == 0;
+                default: throw new PlatformNotSupportedException(cpu.ToString());
+            }
+#else
+            using (var proc = Process.GetCurrentProcess()) {
+                foreach (ProcessModule mod in proc.Modules) {
+                    var fileName = mod.FileName;
+
+                    if (!fileName.Contains("libc"))
+                        continue;
+
+                    if (fileName.Contains("musl"))
+                        return true;
+
+                    break;
+                }
+            }
+
+            return false;
+#endif
+        }
+        
 
 #if !NET6_0_OR_GREATER
         public static void SetWinDllDirectory()
@@ -55,12 +89,12 @@ namespace ZstdNet
 #else
         public static bool IsIgnoreMissingLibrary = false;
 
-        public static bool IsLibraryExist(string libraryName) => IsIgnoreMissingLibrary || File.Exists(string.Format(_libFullPath, libraryName));
+        public static bool IsLibraryAvailable(string libraryName) => IsIgnoreMissingLibrary || File.Exists(string.Format(_libFullPath, libraryName));
 
 #if NET6_0_OR_GREATER
-        public static void ThrowIfDllNotExist()
+        public static void ThrowIfDllNotAvailable()
         {
-            if (!IsLibraryExist(DllName))
+            if (!IsLibraryAvailable(DllName))
                 throw new DllNotFoundException("libzstd.dll is not found!");
         }
 #endif
@@ -71,7 +105,7 @@ namespace ZstdNet
                 string.Format(_libFullPath, libraryName + "-bmi2") :
                 string.Format(_libFullPath, libraryName);
 
-            // Try load the library and if fails, then throw.
+            // Try to load the library and if fails, then throw.
             bool isLoadSuccessful = NativeLibrary.TryLoad(libraryNameLoad, assembly, searchPath, out IntPtr pResult);
             if (isLoadSuccessful && pResult != IntPtr.Zero)
             {
@@ -97,7 +131,7 @@ namespace ZstdNet
             return pResult;
 
         Fail:
-            throw new FileLoadException($"Failed while loading library from this path: {libraryName}\r\nMake sure that the library/{GetLibExtensionPrefix()} is exist or valid and not corrupted!");
+            throw new FileLoadException($"Failed while loading library from this path: {libraryName}\r\nMake sure that the library/{GetLibExtensionPrefix()} exists or valid and not corrupted!");
         }
 #endif
 

@@ -1,33 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Version>1.6.5</Version>
+		<Version>1.0.0</Version>
 		<TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 		<Title>ZstdNet</Title>
-		<PackageId>Hi3Helper.ZstdNet</PackageId>
-		<Company>SKB Kontur, Collapse Project Team</Company>
-		<Authors>SKB Kontur, Collapse Project Team</Authors>
+		<PackageId>ZstdNetNGX</PackageId>
+		<Company>SKB Kontur, Collapse Project Team, TheBinaryLoop</Company>
+		<Authors>SKB Kontur, Collapse Project Team, TheBinaryLoop</Authors>
 		<Description>Zstd compression library wrapper for .NET</Description>
-		<Copyright>Copyright © SKB Kontur 2016-present</Copyright>
-		<PackageProjectUrl>https://github.com/CollapseLauncher/Hi3Helper.ZstdNet</PackageProjectUrl>
+		<Copyright>Copyright © SKB Kontur 2016-present, Copyright © TheBinaryLoop 2025-present</Copyright>
+		<PackageProjectUrl>https://github.com/TheBinaryLoop/ZstdNetNGX</PackageProjectUrl>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 		<PackageTags>zstd zstandard compression</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<LangVersion>7.2</LangVersion>
-		<Platforms>AnyCPU;x64;x86;ARM64</Platforms>
+		<Platforms>AnyCPU;x64;x86;ARM;ARM64</Platforms>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
 		<IsAotCompatible>true</IsAotCompatible>
 		<IsTrimmable>true</IsTrimmable>
-		<AssemblyName>Hi3Helper.ZstdNet</AssemblyName>
+		<AssemblyName>ZstdNetNGX</AssemblyName>
+		<RepositoryUrl>https://github.com/TheBinaryLoop/ZstdNetNGX.git</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="icon.png" Pack="true" PackagePath="\" />
 		<None Include="..\README.md" Pack="true" PackagePath="\" />
 		<None Include="..\LICENSE" Pack="true" PackagePath="lib\" />
-		<None Include="Lib\*-*\*.*" Pack="true" PackagePath="build\Lib\" CopyToOutputDirectory="Always" />
-		<None Include="Lib\Hi3Helper.ZstdNet.targets" Pack="true" PackagePath="build\" CopyToOutputDirectory="Always" />
+        <None Include="runtimes\**\*" Exclude="runtimes\*.*" Pack="true" PackagePath="runtimes\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
+		<None Update="runtimes\ZstdNetNGX.targets">
+		  <Pack>true</Pack>
+		  <PackagePath>build\</PackagePath>
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
 		<PackageReference Include="System.Memory" Version="*" />

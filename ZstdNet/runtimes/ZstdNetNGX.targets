@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Condition="'$(Platform)' == 'AnyCPU'">
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-arm\native\libzstd.so">
+            <Link>runtimes\linux-arm\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-arm64\native\libzstd.so">
+            <Link>runtimes\linux-arm64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-arm\native\libzstd.so">
+            <Link>runtimes\linux-musl-arm\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-arm64\native\libzstd.so">
+            <Link>runtimes\linux-musl-arm64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-x64\native\libzstd.so">
+            <Link>runtimes\linux-musl-x64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-x86\native\libzstd.so">
+            <Link>runtimes\linux-musl-x86\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-x64\native\libzstd.so">
+            <Link>runtimes\linux-x64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-x86\native\libzstd.so">
+            <Link>runtimes\linux-x86\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\win-x64\native\libzstd.dll">
+            <Link>runtimes\win-x64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\win-x86\native\libzstd.dll">
+            <Link>runtimes\win-x86\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)runtimes\win-x86\native\libzstd.dll" Condition="'$(Platform)' == 'x86' and $([MSBuild]::IsOSPlatform('Windows'))">
+			<Link>runtimes\win-x86\native\%(FileName)%(Extension)</Link>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="$(MSBuildThisFileDirectory)runtimes\win-x64\native\libzstd.dll" Condition="'$(Platform)' == 'x64' and $([MSBuild]::IsOSPlatform('Windows'))">
+			<Link>runtimes\win-x64\native\%(FileName)%(Extension)</Link>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-arm\native\libzstd.so" Condition="'$(Platform)' == 'arm' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-arm\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-arm\native\libzstd.so" Condition="'$(Platform)' == 'arm' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-musl-arm\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-arm64\native\libzstd.so" Condition="'$(Platform)' == 'arm64' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-arm64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-arm64\native\libzstd.so" Condition="'$(Platform)' == 'arm64' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-musl-arm64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-x86\native\libzstd.so" Condition="'$(Platform)' == 'x86' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-x86\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-x86\native\libzstd.so" Condition="'$(Platform)' == 'x86' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-musl-x86\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-x64\native\libzstd.so" Condition="'$(Platform)' == 'x64' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-x64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)runtimes\linux-musl-x64\native\libzstd.so" Condition="'$(Platform)' == 'x64' and $([MSBuild]::IsOSPlatform('Linux'))">
+            <Link>runtimes\linux-musl-x64\native\%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+	</ItemGroup>
+</Project>

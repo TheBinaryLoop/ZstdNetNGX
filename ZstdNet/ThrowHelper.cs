@@ -7,7 +7,7 @@ namespace ZstdNet
     internal static class ReturnValueExtensions
     {
 #if NET6_0_OR_GREATER
-        public static void ThrowIfDllNotExist() => DllUtils.ThrowIfDllNotExist();
+        public static void ThrowIfDllNotExist() => DllUtils.ThrowIfDllNotAvailable();
 #endif
 
         public static size_t EnsureZdictSuccess(this size_t returnValue)
