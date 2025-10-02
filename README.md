@@ -3,7 +3,7 @@ This is a fork from the original repo by [**skbkontur**](https://github.com/skbk
 ZstdNet
 =======
 
-[![NuGet](https://img.shields.io/nuget/v/ZstdNet.svg)](https://www.nuget.org/packages/ZstdNet/)
+[![NuGet](https://img.shields.io/nuget/v/ZstdNet.svg)](https://www.nuget.org/packages/ZstdNetNGX/)
 
 **ZstdNet** is a wrapper of **Zstd** native library for .NET languages. It has the following features:
 
